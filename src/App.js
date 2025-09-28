@@ -1,21 +1,24 @@
-import './App.css';
 import React from "react";
-import { useCounter } from "./context/CounterContext";
-import CounterDisplay from "./CounterDisplay";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import DashboardPage from "./pages/DashboardPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const App = () => {
-  const { increment, decrement, reset } = useCounter();
-
   return (
-    <div>
-      <h1>Counter App with Context</h1>
-      <CounterDisplay />
-      <div>
-        <button onClick={increment}>Increment</button>
-        <button onClick={decrement}>Decrement</button>
-        <button onClick={reset}>Reset</button>
-      </div>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <DashboardPage />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
